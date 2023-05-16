@@ -14,6 +14,7 @@ def upload_file_to_s3(file_path, bucket_name):
     bucket = s3.Bucket(bucket_name)
     file_name = file_path.split('/')[-1]  # Extracting just the file name from the file path
     
+    
     try:
         bucket.upload_file(file_path, file_name)
         print(f"File '{file_name}' uploaded successfully to S3 bucket '{bucket_name}'.")
@@ -64,6 +65,3 @@ def lambda_handler(event, context):
         }
     except Exception as e:
         print(f"Error in main function': {str(e)}")
-
-        
-    
