@@ -1,3 +1,7 @@
+#
+# INFO: this function to get ssid info of a network and generate qrcode.. 
+#       updating ssid info is similar with POST and different load (new psk ..)
+
 import json
 import boto3
 import requests
