@@ -10,17 +10,20 @@
  
 ## deploy on aws lambda how to:
 1. on dev machine
-- pip install requests, qrcode .. -t some/folder
-- zip -r some/folder
-
+- package/ dependency preparation:
+  -  mkdir -p temp/python
+  -  cd temp/
+  -  python3.10 -m pip install requests -t python
+  -  zip -r lambda_layer_requests.zip python
+  
 2. on aws
-- create layer with created zip file
+- create layer with above zip file
 - create 'lambda_function.py'
   - get/post API
   - generated qr code
   - upload to s3
 
-3. s3 (for static website)
+3. on s3 (for static website)
 - create index.html for qr-image ref. 
 - note: no-cache metadata,  .. cognitor browser ..
 
