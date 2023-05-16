@@ -1,6 +1,6 @@
-Task: auto ssid info upate & request
+# Task: auto ssid info upate & request
 
-# deploy on aws lambda how to:
+## deploy on aws lambda how to:
 1. on dev machine
 - pip install requests, qrcode .. -t some/folder
 - zip -r some/folder
@@ -14,5 +14,5 @@ Task: auto ssid info upate & request
 
 3. s3 (for static website)
 - create index.html for qr-image ref. 
-- note: no cache setting .. cognitor browser ..
+- note: no-cache metadata,  .. cognitor browser ..
 
