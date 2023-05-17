@@ -29,4 +29,4 @@
 
 ## note about qrcode:
 string for psk and ipsk:
-WIFI:S:<TestIPSK>;T:WPA;P:<ipskpass1>;H:false;;
+WIFI:S:ssidhere;T:WPA;P:ipskhere;H:false;;
