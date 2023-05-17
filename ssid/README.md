@@ -27,3 +27,6 @@
 - create index.html for qr-image ref. 
 - note: no-cache metadata,  .. cognitor browser ..
 
+## note about qrcode:
+string for psk and ipsk:
+WIFI:S:<TestIPSK>;T:WPA;P:<ipskpass1>;H:false;;
