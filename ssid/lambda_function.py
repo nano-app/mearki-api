@@ -1,12 +1,10 @@
-#
-# INFO: this function to get ssid info of a network and generate qrcode.. 
-#       updating ssid info is similar with POST and different load (new psk ..)
-
 import json
 import boto3
 import requests
 import qrcode
 import os
+
+
 
 # funct. upload file to s3
 def upload_file_to_s3(file_path, bucket_name):
@@ -28,13 +26,14 @@ def gen_qr_and_upload_s3(source_string, bucket_name):
     img.save('/tmp/outputqr.png')    
     file_path = '/tmp/outputqr.png'
     upload_file_to_s3(file_path, bucket_name)
+    print('gen qrcode and upload s3 successfully')
 
 # MAIN function: request ssid info, parsing json result, call qr generating and upload to s3
 def lambda_handler(event, context):
     # TODO implement
     bucket_name = os.environ['BUCKET_NAME']
     my_api_key = os.environ['API_KEY']
-    ssid_url = os.environ['API_SSID_URL']
+    ipsk_url = os.environ['API_IPSK_URL']
     
     #1. Get ssid info
     headers = {
@@ -45,23 +44,31 @@ def lambda_handler(event, context):
     payload = None
     
     try:
-        response = requests.request('GET', ssid_url, headers=headers, data = payload)
+        response = requests.request('GET', ipsk_url, headers=headers, data = payload)
         print(response)
         
         # 2. gen qr and upload to s3
         # extract ssid info from json result
         json_data = json.loads(response.text.encode('utf8'))
-        ssid_name = json_data['name']
-        ssid_psk = json_data['psk']
-        ssid_encmode = json_data['encryptionMode']
+        print(json_data)
+        
+        # should be requestd, another request URL
+        ssid_name = "TestIPSK"
+        ssid_encmode = "WPA"
+        
+        ssid_ipsk = json_data[0]['passphrase']
+        
         
             # wifi string format 
             # WIFI:S:<ssid_name>;T:WPA;P:<password>;H:false;;
-        ssid_string = 'WIFI:S:' + ssid_name + ';T:' + ssid_encmode+';P:' + ssid_psk + ';H:false;;'
+        ssid_string = 'WIFI:S:' + ssid_name + ';T:' + ssid_encmode+';P:' + ssid_ipsk + ';H:false;;'
+        
         gen_qr_and_upload_s3(ssid_string, bucket_name)
+        
         return {
             'statusCode': 200,
             'body': json.dumps('get ssid result: ' + ssid_string)
         }
+        
     except Exception as e:
         print(f"Error in main function': {str(e)}")
