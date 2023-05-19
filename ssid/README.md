@@ -13,7 +13,7 @@
 - package/ dependency preparation:
   -  mkdir -p temp/python
   -  cd temp/
-  -  python3.10 -m pip install requests -t python
+  -  python3.10 -m pip install requests qrcode boto3 -t python
   -  zip -r lambda_layer_requests.zip python
   
 2. on aws
