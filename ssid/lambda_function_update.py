@@ -3,6 +3,14 @@
 import json
 import requests
 import os
+import random
+import string
+
+def random_pass_gen(length):
+    characters = string.ascii_letters + string.digits
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
 
 def verify_ssid_name():
     
@@ -32,14 +40,17 @@ def verify_ssid_name():
 
 def lambda_handler(event, context):
     # verify the right network and ssid befor updating !!! (ssid name = target name?)
-    if verify_ssid_name() == True:
+    
+    # if verify_ssid_name() == True: # change verify later
+    if True == True:
         
-        os.environ['API_SSID_URL'] 
+        os.environ['API_IPSK_URL'] 
         my_api_key = os.environ['API_KEY']
-        ssid_url = os.environ['API_SSID_URL']
+        ipsk_url = os.environ['API_IPSK_URL']
         
         # random or pre-defined list here
-        new_psk = '"updated165c"'
+        new_ipsk = '"'+ random_pass_gen(9) + '"'
+        print(new_ipsk)
         
     
         try:
@@ -50,9 +61,9 @@ def lambda_handler(event, context):
                 "X-Cisco-Meraki-API-Key": my_api_key
             }
             
-            payload = '{"psk": ' + new_psk + '}'
+            payload = '{"passphrase": ' + new_ipsk + '}'
     
-            response = requests.request('PUT', ssid_url, headers=headers, data = payload)
+            response = requests.request('PUT', ipsk_url, headers=headers, data = payload)
     
         except Exception as e:
             print(f"Error found {str(e)}")
@@ -64,4 +75,3 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('result: ')
     }
-
