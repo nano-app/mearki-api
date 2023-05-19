@@ -25,8 +25,8 @@
 
 3. on s3 (for static website)
 - create index.html for qr-image ref. 
-- note: no-cache metadata,  .. cognitor browser ..
+- note: no-cache metadata,  .. incognitor browser ..
 
 ## note about qrcode:
-string for psk and ipsk:
-WIFI:S:ssidhere;T:WPA;P:ipskhere;H:false;;
+string format for psk and ipsk wifi:
+WIFI:S:ssidhere;T:WPA;P:passphrasekhere;H:false;;
